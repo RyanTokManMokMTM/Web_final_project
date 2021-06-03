@@ -2,7 +2,7 @@ import CustionNavBar from './components/Nav/CustomNavBar'
 
 function App() {
   return (
-    <div>
+    <div className="main-body">
        <CustionNavBar/>
     </div>
   );
