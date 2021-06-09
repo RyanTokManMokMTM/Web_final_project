@@ -6,9 +6,11 @@ const Home = (props) =>{
     return(
         <div style={{margin:"10px"}}>
         <Silder SilderData={props.silderData}/>
-        {props.movieData.map(list=>(
-            <CardScorllingList movieData={list.movieList} category = {list.categoty} />
-        ))}
+        {props.movieData.map(list=>{
+            return(
+                <CardScorllingList movieData={list.movieList} category = {list.categoty} />
+            )
+        })}
         </div>
 
     )

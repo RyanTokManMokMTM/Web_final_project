@@ -8,7 +8,7 @@ const MovieCard = (props) =>{
             <Card.Img variant="top" src={props.movie.url} height="268"/>
             <Card.Body>
             <Card.Title style={{fontSize:15,height:"45px"}}>{props.movie.movieName}</Card.Title>
-            <Button variant="warning" size="sm">More Detail</Button>
+            <Button href = {"/movieDetail/" + props.movie.id} variant="warning" size="sm">More Detail</Button>
             </Card.Body>
             </Card>
         </div>

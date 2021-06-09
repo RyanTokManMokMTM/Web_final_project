@@ -10,11 +10,14 @@ const CardScorllingList = (props)=>{
             <Container fluid >
                 <div style={{color:"purple"}}>
                     <Row xl={6} md={3} sm={3} xs={2}> 
-                    {props.movieData.map((item) => (
-                            <Col>
+                    {props.movieData.map((item) => {
+                        return(
+                            <Col >
                                 <MovieCard movie={item}/>
                             </Col>
-                        ))}
+                        )
+
+                        })}
                     </Row>
                 
                 </div>

@@ -8,6 +8,8 @@ import Home from './components/mainPage/home'
 import SignUp from './components/SignUp/SignUp'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.css'
+
+import MovieDetail from './components/MovieComponent/MovieDetail'
 const MovieData = [
   {
       key:1,
@@ -234,6 +236,7 @@ ReactDOM.render(
         <Route exact path='/'><Home movieData = {dummyCategoryJSON} silderData = {SilderData}/></Route>
         <Route path="/signup"><SignUp/> </Route>
         <Route path="/login" ><Login/></Route>
+        <Route path="/movieDetail/:movieID"><MovieDetail/></Route>
       </Switch>
     </Router>
   </React.StrictMode>,
