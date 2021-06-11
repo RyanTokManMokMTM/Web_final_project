@@ -1,8 +1,34 @@
 
 //NavDropdown,Form,Button,FormControl
-import {Navbar,Nav,Button} from 'react-bootstrap'
-
+import {Navbar,Nav,Button,NavDropdown} from 'react-bootstrap'
+import {apiUserLogout} from '../../api/api'
 const CustionNavBar = (props) =>{
+    const logOut = ()=>{
+        apiUserLogout()
+        .then(res=>{
+            console.log(res.data)
+            props.onClickAuth(false)
+        })
+        .catch(err => console.log(err))
+        
+    }
+
+    const renderItem = ()=>{
+        if(props.auth){
+            return <div>
+                    <b style={{color:"white",marginRight:"10px"}}>Welcom,<a href="" style={{color:"#ff1a40"}}>{props.info.firstName + "," + props.info.lastName}</a></b>
+                    <Button onClick={logOut}  size="sm" style={{marginRight:"10px"}}>logout</Button> 
+                </div>
+        }
+        else{
+            return <div>
+            <Button href="/login" size="sm" style={{marginRight:"10px"}}>Login</Button> 
+            <Button href="/signup" size="sm" style={{marginRight:"10px"}}>SignUp</Button> 
+            </div>
+        }
+    }
+
+
     return (
         <div>
             <Navbar bg="dark" variant="dark" expand="md">
@@ -11,24 +37,23 @@ const CustionNavBar = (props) =>{
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                 <Nav.Link href="/">Home</Nav.Link>
-                <Nav.Link href="/test">Link</Nav.Link>
-                {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                    <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                <NavDropdown title="More Movie" id="basic-nav-dropdown" disabled={true}>
+                    <NavDropdown.Item href="">Popular</NavDropdown.Item>
+                    <NavDropdown.Item href="">NowPlaying</NavDropdown.Item>
+                    <NavDropdown.Item href="">Upcoming</NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                </NavDropdown> */}
+                    <NavDropdown.Item href="">Top_Rated</NavDropdown.Item>
+                </NavDropdown>
+                <Nav.Link href="/" disabled={true}>About us</Nav.Link>
+                <Nav.Link href="/" disabled={true}>Contact us</Nav.Link>
                 </Nav>
                 {/* <Form inline>
                 <FormControl type="text" placeholder="Search" className="mr-sm-2" />
                 <Button variant="outline-success">Search</Button>
                 </Form> */}
-                <div>
-                <Button href="/login" size="sm" style={{marginRight:"10px"}}>Login</Button> 
-                <Button href="/signup" size="sm" style={{marginRight:"10px"}}>SignUp</Button> 
-                </div>
+                {renderItem()}
              
+
             </Navbar.Collapse>
             </Navbar>
         </div>

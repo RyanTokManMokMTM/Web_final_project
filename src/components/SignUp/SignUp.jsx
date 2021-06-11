@@ -1,9 +1,9 @@
 import {Form,Button,Row,Alert,Col} from 'react-bootstrap'
-import {Link} from 'react-router-dom'
 import {React,useState} from 'react'
 import {apiUserSiginUp} from '../../api/api'
-import {Redirect} from 'react-router-dom'
+import {Redirect,useHistory} from 'react-router-dom'
 const SignUp = (props)=>{
+    let history = useHistory()
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
     const [comfirmPassword,setComfirmPassword] = useState("")
@@ -77,55 +77,63 @@ const SignUp = (props)=>{
     
     return(
         <div>
-            <div>
-                <Form style={{padding:"10px"}} onSubmit={handleRequest}>
-                    <Form.Group  controlId="formGridEmail">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" placeholder="Enter Your email" onChange={onChangeEmail} required={true}/>
-                    </Form.Group>
+            {props.auth == true ? history.push("/"):
+                        <dir>
+                        <div>
+                            <Form style={{padding:"10px"}} onSubmit={handleRequest}>
+                                <Form.Group  controlId="formGridEmail">
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control type="email" placeholder="Enter Your email" onChange={onChangeEmail} required={true}/>
+                                </Form.Group>
+            
+                                <Row className="mb-3">
+                                    <Form.Group as={Col} controlId="formGridPassword">
+                                    <Form.Label>password</Form.Label>
+                                    <Form.Control type="password" placeholder="Enter Your password" onChange={onChangePassword}  required={true}/>
+                                    </Form.Group>
+            
+                                    <Form.Group as={Col} controlId="formGridConfirmPassword">
+                                    <Form.Label>Comfirm Password</Form.Label>
+                                    <Form.Control type="password" placeholder="Confirm Your Password" onChange={onChangeComfirmPassword}  required={true}/>
+                                    </Form.Group>
+                                </Row>
+            
+                                <Row className="mb-3">
+                                    <Form.Group as={Col} controlId="formGridPassword">
+                                    <Form.Label>FirstName</Form.Label>
+                                    <Form.Control type="text" placeholder="First Name(user)" onChange={onChangeFirstName} />
+                                    </Form.Group>
+            
+                                    <Form.Group as={Col} controlId="formGridConfirmPassword">
+                                    <Form.Label>LastName</Form.Label>
+                                    <Form.Control type="text" placeholder="Last Name(anonymous)" onChange={onChangeLastName}/>
+                                    </Form.Group>
+                                </Row>
+            
+                                <Button variant="primary" type="submit">
+                                    SignUp
+                                </Button>
+                            </Form>
+                        </div>
+            
+                        <div>
+                            {message === "" ? null
+                            : <Alert variant="danger">
+                                 {message}
+                            </Alert>}
+                        </div>
+            
+                        <div>
+                            {siginUp == true ? <Redirect to="/login" />
+                            : null}
+                        </div>
+                       
+            
+            
+                        </dir>
+            
+            }
 
-                    <Row className="mb-3">
-                        <Form.Group as={Col} controlId="formGridPassword">
-                        <Form.Label>password</Form.Label>
-                        <Form.Control type="password" placeholder="Enter Your password" onChange={onChangePassword}  required={true}/>
-                        </Form.Group>
-
-                        <Form.Group as={Col} controlId="formGridConfirmPassword">
-                        <Form.Label>Comfirm Password</Form.Label>
-                        <Form.Control type="password" placeholder="Confirm Your Password" onChange={onChangeComfirmPassword}  required={true}/>
-                        </Form.Group>
-                    </Row>
-
-                    <Row className="mb-3">
-                        <Form.Group as={Col} controlId="formGridPassword">
-                        <Form.Label>FirstName</Form.Label>
-                        <Form.Control type="text" placeholder="First Name(user)" onChange={onChangeFirstName} />
-                        </Form.Group>
-
-                        <Form.Group as={Col} controlId="formGridConfirmPassword">
-                        <Form.Label>LastName</Form.Label>
-                        <Form.Control type="text" placeholder="Last Name(anonymous)" onChange={onChangeLastName}/>
-                        </Form.Group>
-                    </Row>
-
-                    <Button variant="primary" type="submit">
-                        SignUp
-                    </Button>
-                </Form>
-            </div>
-
-            <div>
-                {message === "" ? null
-                : <Alert variant="danger">
-                     {message}
-                </Alert>}
-            </div>
-
-            <div>
-                {siginUp == true ? <Redirect to="/login" />
-                : null}
-            </div>
-           
 
         </div>
     )

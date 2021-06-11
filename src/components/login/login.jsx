@@ -1,8 +1,9 @@
 import {Form,Button,Alert } from 'react-bootstrap'
 import {React,useState} from 'react'
 import { apiUserLogin } from '../../api/api'
-import {Redirect} from 'react-router-dom'
+import {Redirect,useHistory} from 'react-router-dom'
 const Login  = (props)=> {
+    let history = useHistory()
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
     const [message,setMessage] = useState("")
@@ -32,10 +33,13 @@ const Login  = (props)=> {
                 if(!res.data.success){
                     setMessage(res.data.message)
                     setIsLogin(res.data.success)
+
                 }
                 else{
                     setIsLogin(res.data.success)
                     setMessage("")
+                    props.onClickLogin(res.data.success)
+                    history.push("/")
                 }
             })
             .catch(err =>{
@@ -44,10 +48,13 @@ const Login  = (props)=> {
 
         }
     }
-
-
+    
+    if(props.auth){
+        return <Redirect to="/"/>
+    }
     return(
         <div>
+            <div>
             <div>
                 <Form style={{padding:"10px"}} onSubmit={login}>
                 <Form.Group controlId="formBasicEmail">
@@ -73,10 +80,6 @@ const Login  = (props)=> {
                     {message}
                  </Alert>}
             </div>
-
-            <div>
-                {islogin == true ? <Redirect to="/" />
-                : null}
             </div>
         </div>
     )

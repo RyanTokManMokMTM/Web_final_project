@@ -13,7 +13,7 @@ const CardScorllingList = (props)=>{
                     {props.movieData.map((item) => {
                         return(
                             <Col >
-                                <MovieCard movie={item}/>
+                                <MovieCard key={item.movieId}  movie={item}/>
                             </Col>
                         )
 
